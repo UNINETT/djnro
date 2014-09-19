@@ -1,7 +1,7 @@
 {% extends "edumanage/welcome.html"%}
 {% load i18n %}
 {% block crumbs %}
-	<li><a href="{% url manage %}">{% trans "Home" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'manage' %}">{% trans "Home" %}</a><span class="divider">/</span></li>
 	<li class="active">{% trans "CAT Enroll" %}</li>
 {% endblock %}
 {% block extrahead %}
@@ -57,7 +57,7 @@
 {% if cat_instances %}
 <div class="row">
 <div class="span6 well">
-<form method="POST" class="form-horizontal" id="catenroll_form" action="{% url catenroll %}">
+<form method="POST" class="form-horizontal" id="catenroll_form" action="{% url 'catenroll' %}">
 	{% csrf_token %}
 	<div class="control-group">
 		<label class="control-label" for="id_catinstance"><b>{% trans "CAT instance" %}</b></label>

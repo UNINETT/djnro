@@ -4,7 +4,7 @@ from edumanage.models import *
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='profile')
     institution = models.ForeignKey(Institution)
     is_social_active = models.BooleanField(default=False)
     

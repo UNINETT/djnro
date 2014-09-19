@@ -93,7 +93,7 @@ var mapOptions = {
 
 function placeMarkers(){
 var markers = new Array();
-$.get("{% url get-service-points %}", function(data){
+$.get("{% url 'get-service-points' %}", function(data){
 	$.each(data, function(index, jsonMarker) {
 	var marker = createMarker(jsonMarker);
 	if (marker){
@@ -126,7 +126,7 @@ $.get("{% url get-service-points %}", function(data){
     "</div>"+
     "</div>"+
     "</div>"+
-    "<div style='text-align:right;'><a href = '{% url edit-services  %}"+jsonMarker.key+"' class='btn btn-primary'>Edit</a></div>"+
+    "<div style='text-align:right;'><a href = '{% url 'edit-services' %}"+jsonMarker.key+"' class='btn btn-primary'>Edit</a></div>"+
     "</div>");
 		infoWindow.open(map,marker);
      });
@@ -169,7 +169,7 @@ $.get("{% url get-service-points %}", function(data){
     <ul class="nav">
         <li>
         	{% load tolocale %}
-           <a class="brand" href="{% url manage %}" style="font-size: 14px;">{% if institution_exists %}{% tolocale institution LANGUAGE_CODE %}{% else %}Management{% endif %}</a>
+           <a class="brand" href="{% url 'manage' %}" style="font-size: 14px;">{% if institution_exists %}{% tolocale institution LANGUAGE_CODE %}{% else %}Management{% endif %}</a>
         </li>
         
 
@@ -186,7 +186,7 @@ $.get("{% url get-service-points %}", function(data){
 	    			<li class="active">{% trans "Home" %}</li>
 	    			{% endblock %}
 	    		</ul>
-			<p class="pull-right"><strong>{{user}}</strong> (<a href="{% url logout %}">{% trans "Logout" %}</a>)</p>
+			<p class="pull-right"><strong>{{user}}</strong> (<a href="{% url 'logout' %}">{% trans "Logout" %}</a>)</p>
 			</div></div>
 		</div>
 	</div>
@@ -195,31 +195,31 @@ $.get("{% url get-service-points %}", function(data){
 			<div class="well sidebar-nav">
 				<ul class="nav nav-list">
 					<li {% block homeactive %}class="active"{% endblock %}>
-						<a href="{% url manage %}">{% trans "Home" %}</a>
+						<a href="{% url 'manage' %}">{% trans "Home" %}</a>
 					</li>
 					{% if institution_exists %}
 					<li {% block instactive %}{% endblock %}>
-						<a href="{% url institutions %}">{% trans "Institution" %} {% if not institutiondetails %}<font style="color: red; font-weight: bold; font-size: 14px;">(!)</font>{% endif %}</a>
+						<a href="{% url 'institutions' %}">{% trans "Institution" %} {% if not institutiondetails %}<font style="color: red; font-weight: bold; font-size: 14px;">(!)</font>{% endif %}</a>
 					</li>
 					{% endif %}
 					{% if institutiondetails %}
 					<li {% block servicesactive %}{% endblock %}>
-						<a href="{% url services %}">{% trans "Locations" %} ({{services_num}})</a>
+						<a href="{% url 'services' %}">{% trans "Locations" %} ({{services_num}})</a>
 					</li>
 					<li {% block serversactive %}{% endblock %}>
-						<a href="{% url servers %}">{% trans "Servers" %} ({{servers_num}})</a>
+						<a href="{% url 'servers' %}">{% trans "Servers" %} ({{servers_num}})</a>
 					</li>
 					<li {% block realmsactive %}{% endblock %}>
-						<a href="{% url realms %}">{% trans "Realms" %} ({{realms_num}})</a>
+						<a href="{% url 'realms' %}">{% trans "Realms" %} ({{realms_num}})</a>
 					</li>
 					<li {% block instrealmmon %}{% endblock %}>
-						<a href="{% url instrealmmon %}">{% trans "Monitored Realms" %} ({{monrealms_num}})</a>
+						<a href="{% url 'instrealmmon' %}">{% trans "Monitored Realms" %} ({{monrealms_num}})</a>
 					</li>
 					<li {% block contactsactive %}{% endblock %}>
-						<a href="{% url contacts %}">{% trans "Contacts" %} ({{contacts_num}})</a>
+						<a href="{% url 'contacts' %}">{% trans "Contacts" %} ({{contacts_num}})</a>
 					</li>
 					<li {% block catactive %}{% endblock %}>
-						<a href="{% url catenroll %}">{% trans "eduroam CAT" %}</a>
+						<a href="{% url 'catenroll' %}">{% trans "eduroam CAT" %}</a>
 					</li>
 					
 					{% endif %}
@@ -243,7 +243,7 @@ $.get("{% url get-service-points %}", function(data){
               		<hr>
 					{% if services %} <div id="map_canvas" style="width:100%; height:450px;"></div>
 					{% else %}
-					<div>{% if institutiondetails %}{% trans "No services defined yet"%}! <a href="{% url edit-services %}" class="btn btn-primary">{% trans "Add new service" %}</a>{% else %}Specify your institution details to proceed <a class="btn btn-small btn-primary" href="{% url edit-institution institution.pk %}">{% trans "Edit" %}</a>{% endif %}</div>
+					<div>{% if institutiondetails %}{% trans "No services defined yet"%}! <a href="{% url 'edit-services' %}" class="btn btn-primary">{% trans "Add new service" %}</a>{% else %}Specify your institution details to proceed <a class="btn btn-small btn-primary" href="{% url 'edit-institution' institution.pk %}">{% trans "Edit" %}</a>{% endif %}</div>
 					{% endif %}
 				
 					{% endblock %}{% endif %}

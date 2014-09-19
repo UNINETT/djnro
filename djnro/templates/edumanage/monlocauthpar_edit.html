@@ -1,8 +1,8 @@
 {% extends "edumanage/welcome.html"%}
 {% load i18n %}
 {% block crumbs %}
-	<li><a href="{% url manage %}">{% trans "Home" %}</a><span class="divider">/</span></li>
-	<li><a href="{% url instrealmmon %}">{% trans "Monitored Realms" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'manage' %}">{% trans "Home" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'instrealmmon' %}">{% trans "Monitored Realms" %}</a><span class="divider">/</span></li>
 	<li class="active">{% if edit %}{{realm.realm}} parameters ({% trans "edit" %}){% else %}{% trans "Add Monitored Realm Parameters" %} ({{realm.realm}}){% endif %}</li>
 {% endblock %}
 {% block extrahead %}

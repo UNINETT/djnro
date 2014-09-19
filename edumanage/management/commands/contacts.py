@@ -13,7 +13,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from edumanage.models import *
 from accounts.models import *
-from registration.models import RegistrationProfile
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -37,7 +36,7 @@ class Command(BaseCommand):
                     )
 		+ "\n")
 	data = [
-		(u.get_profile().institution.get_name('el'),
+		(u.profile.institution.get_name('el'),
 		 u.first_name + " " + u.last_name,
 		 m)
 		for u in users if

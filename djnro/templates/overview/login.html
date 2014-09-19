@@ -15,7 +15,7 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<form class="form-horizontal" method="post"
-							action="{% url altlogin %}">
+							action="{% url 'altlogin' %}">
 	
 							{% if form.non_field_errors %} {% for err in form.non_field_errors %}
 							<div class="control-group error ">
@@ -43,7 +43,7 @@
 							<div class="control-group">
 								<div class="controls">
 									<button type="submit" class="btn">Sign in</button>
-									<input type="hidden" name="next" value="{% url overview %}" />
+									<input type="hidden" name="next" value="{% url 'overview' %}" />
 								</div>
 							</div>
 						</form>

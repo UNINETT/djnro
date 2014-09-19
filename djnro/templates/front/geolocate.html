@@ -240,7 +240,7 @@ margin-bottom: 0px;
 
 	function getClosest(coords){
 		$.ajax({
-			url:"{% url closest %}", 
+			url:"{% url 'closest' %}", 
 			data: {"lat": coords.lat(), "lng": coords.lng()},
 			type: "GET",
 			cache: false,

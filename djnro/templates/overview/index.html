@@ -119,7 +119,7 @@ oTableI.fnDraw();
 	    			<li class="active">{% trans "Overview" %}</li>
 	    			{% endblock %}
 	    		</ul>
-			<p class="pull-right"><strong>{{user}}</strong> (<a href="{% url logout %}">{% trans "Logout" %}</a>)</p>
+			<p class="pull-right"><strong>{{user}}</strong> (<a href="{% url 'logout' %}">{% trans "Logout" %}</a>)</p>
 			</div></div>
 		</div>
 	</div>
@@ -128,10 +128,10 @@ oTableI.fnDraw();
 			<div class="well sidebar-nav">
 				<ul class="nav nav-list">
 					<li {% block homeactive %}class="active"{% endblock %}>
-						<a href="{% url overview %}">{% trans "Overview" %}</a>
+						<a href="{% url 'overview' %}">{% trans "Overview" %}</a>
 					</li>
 					<li>
-						<a href="{% url logout %}">{% trans "Logout" %}</a>
+						<a href="{% url 'logout' %}">{% trans "Logout" %}</a>
 					</li>
 					
 				</ul>

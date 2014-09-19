@@ -3,7 +3,7 @@
     {% block topmenu %}
     <ul class="nav">
         <li>
-            <a href="{% url index %}">{% trans "Home" %}</a>
+            <a href="{% url 'index' %}">{% trans "Home" %}</a>
         </li>
         <li>
             <a href="/faq/{{LANGUAGE_CODE}}/">FAQ</a>
@@ -30,7 +30,7 @@ Select your institution to proceed. Our administrators will activate your accoun
 </div>
 <div class="span12"></div>
 <div class="span12">
-<form method="POST" class="form-horizontal" action="{% url selectinst %}">
+<form method="POST" class="form-horizontal" action="{% url 'selectinst' %}">
     {% csrf_token %}
     {% if form.non_field_errors %}
     <p class="error">

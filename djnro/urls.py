@@ -1,13 +1,18 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+from django.shortcuts import render
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
+activation_complete_params = {
+    'template_name': 'registration/activation_complete.html', 
+    'dictionary': {},
+}
+
 urlpatterns = patterns('',
     # Example:
-    (r'^accounts/', include('social_auth.urls')),
+    #(r'^accounts/', include('social_auth.urls')),
 
     (r'^setlang/?$', 'django.views.i18n.set_language'),
 
@@ -23,8 +28,7 @@ urlpatterns = patterns('',
     
     url(r'^registration/accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activate', name='activate_account'),
     url(r'^registration/activate/complete/$',
-                           direct_to_template,
-                           { 'template': 'registration/activation_complete.html' },
+                           'django.shortcuts.render', activation_complete_params,
                            name='registration_activation_complete'),
     (r'^tinymce/', include('tinymce.urls')),
 )
@@ -38,7 +42,7 @@ urlpatterns += patterns('edumanage.views',
     url(r'^management/?$', 'managementPage', name="managementPage"),
     url(r'^worldpoints/?$', 'worldPoints', name="worldPoints"),
     url(r'^participants/?$', 'participants', name="participants"),
-    url(r'^services/allpoints/?$', 'get_all_services', name="get-all-services"),
+    url(r'^services/allpoints/?$', 'get_all_services', name="get_all_services"),
     
     url(r'^general/institution.xml', "instxml", name="instxml"),
     url(r'^general/realm.xml', "realmxml", name="realmxml"),

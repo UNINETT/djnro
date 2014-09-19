@@ -1,5 +1,5 @@
 from django import forms
-from django.core.validators import email_re
+from django.core.validators import validate_email
 
 class MultipleEmailsField(forms.Field):
     def clean(self, value):
@@ -11,7 +11,7 @@ class MultipleEmailsField(forms.Field):
             raise forms.ValidationError('Enter at least one e-mail address. Multiple email addresses Should be separated with semicolon (;)')
         emails = value.split(';')
         for email in emails:
-            if not email_re.match(email):
+            if not validate_email(email):
                 raise forms.ValidationError('%s is not a valid e-mail address.' % email)
 
         # Always return the cleaned data.

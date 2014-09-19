@@ -9,7 +9,7 @@
 	</style>
 {% endblock %}
 			{% block crumbs %}
-	    			<li><a href="{% url manage %}">{% trans "Home" %}</a><span class="divider">/</span></li>
+	    			<li><a href="{% url 'manage' %}">{% trans "Home" %}</a><span class="divider">/</span></li>
 	    			<li class="active">{% trans "Institution" %}</li>
 	    			{% endblock %}
 			{% block homeactive %}{% endblock %}
@@ -96,12 +96,12 @@
 	</div>
 	<div class="control-group">
         <div class="controls">
-            <a class="btn btn-primary" href="{% url edit-institution institution.pk %}">{% trans "Edit" %}</a>
+            <a class="btn btn-primary" href="{% url 'edit-institution' institution.pk %}">{% trans "Edit" %}</a>
         </div>
     </div>
             </div>   
               		{% else %}
-              			<div>{% trans "No institution details defined yet for" %} {% tolocale institution LANGUAGE_CODE%} <a href="{% url edit-institution institution.pk %}" class="btn btn-small btn-primary">{% trans "edit" %}</a></div>
+              			<div>{% trans "No institution details defined yet for" %} {% tolocale institution LANGUAGE_CODE%} <a href="{% url 'edit-institution' institution.pk %}" class="btn btn-small btn-primary">{% trans "edit" %}</a></div>
               		{% endif %}
               {% else %}
               <p>{% trans "No institution defined" %}</p>

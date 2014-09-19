@@ -29,7 +29,6 @@ from django.db.models import Max
 from django.views.decorators.cache import never_cache
 from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate, login
-from registration.models import RegistrationProfile
 from django.core.cache import cache
 
 from edumanage.decorators import social_active_required
@@ -43,7 +42,7 @@ def index(request):
 def manage_login_front(request):
     user = request.user
     try:
-        profile = user.get_profile()
+        profile = user.profile
     except UserProfile.DoesNotExist:
         return render_to_response('edumanage/welcome_manage.html',
                               context_instance=RequestContext(request, base_response(request)))
@@ -64,7 +63,7 @@ def manage(request):
     servers_list = []
     user = request.user
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
     except UserProfile.DoesNotExist:
         return render_to_response('edumanage/welcome.html',
@@ -89,7 +88,7 @@ def institutions(request):
     user = request.user
     dict = {}
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -112,7 +111,7 @@ def institutions(request):
 def add_institution_details(request, institution_pk):
     user = request.user
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -168,7 +167,7 @@ def services(request, service_pk):
     user = request.user
     dict = {}
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -216,7 +215,7 @@ def add_services(request, service_pk):
     service = False
     edit = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -302,7 +301,7 @@ def del_service(request):
         req_data = request.GET.copy()
         service_pk = req_data['service_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete service. Not enough rights"
@@ -329,7 +328,7 @@ def servers(request, server_pk):
     user = request.user
     servers = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
     except UserProfile.DoesNotExist:
         inst = False
@@ -356,7 +355,7 @@ def add_server(request, server_pk):
     server = False
     edit = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -412,7 +411,7 @@ def cat_enroll(request):
     cat_url = None
     inst_uid = None
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -490,7 +489,7 @@ def del_server(request):
         req_data = request.GET.copy()
         server_pk = req_data['server_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete server. Not enough rights"
@@ -517,7 +516,7 @@ def realms(request):
     user = request.user
     servers = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
     except UserProfile.DoesNotExist:
         return HttpResponseRedirect(reverse("manage"))
@@ -538,7 +537,7 @@ def add_realm(request, realm_pk):
     realm = False
     edit = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -599,7 +598,7 @@ def del_realm(request):
         req_data = request.GET.copy()
         realm_pk = req_data['realm_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Not enough rights"
@@ -627,7 +626,7 @@ def contacts(request):
     servers = False
     instcontacts = []
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -652,7 +651,7 @@ def add_contact(request, contact_pk):
     edit = False
     contact = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -709,7 +708,7 @@ def del_contact(request):
         req_data = request.GET.copy()
         contact_pk = req_data['contact_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete contact. Not enough rights"
@@ -745,7 +744,7 @@ def instrealmmon(request):
     servers = False
     instcontacts = []
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -767,7 +766,7 @@ def add_instrealmmon(request, instrealmmon_pk):
     instrealmmon = False
     edit = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -819,7 +818,7 @@ def del_instrealmmon(request):
         req_data = request.GET.copy()
         instrealmmon_pk = req_data['instrealmmon_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete monitored realm. Not enough rights"
@@ -842,7 +841,7 @@ def add_monlocauthpar(request, instrealmmon_pk, monlocauthpar_pk):
     monlocauthpar = False
     edit = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -904,7 +903,7 @@ def del_monlocauthpar(request):
         req_data = request.GET.copy()
         monlocauthpar_pk = req_data['monlocauthpar_pk']
         try:
-            profile = user.get_profile()
+            profile = user.profile
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete realm monitoring parameters. Not enough rights"
@@ -925,7 +924,7 @@ def del_monlocauthpar(request):
 def adduser(request):
     user = request.user
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         inst.__unicode__ = inst.get_name(request.LANGUAGE_CODE)
     except UserProfile.DoesNotExist:
@@ -964,7 +963,7 @@ def base_response(request):
     institution = False
     institution_exists = False
     try:
-        profile = user.get_profile()
+        profile = user.profile
         institution = profile.institution
         institution_exists = True
     except UserProfile.DoesNotExist:
@@ -1004,7 +1003,7 @@ def get_service_points(request):
     if request.method == "GET":
         user = request.user
         try:
-            profile = user.get_profile()
+            profile = user.profile
             inst = profile.institution
         except UserProfile.DoesNotExist:
             inst = False
@@ -1143,7 +1142,7 @@ def user_login(request):
         user = authenticate(username=username, firstname=firstname, lastname=lastname, mail=mail, authsource='shibboleth')
         if user is not None:
             try:
-                profile = user.get_profile()
+                profile = user.profile
                 inst = profile.institution
             except UserProfile.DoesNotExist:
                 form = UserProfileForm()
@@ -1173,7 +1172,7 @@ def check_user_inst(request):
     s = request.session.keys()
     raise Exception
     try:
-        profile = user.get_profile()
+        profile = user.profile
         inst = profile.institution
         if user.is_active:
             return HttpResponseRedirect(reverse("manage"))
@@ -1238,7 +1237,7 @@ def selectinst(request):
             useradded = userprofile.user
             useradded.email = mailField
             useradded.save()
-            user_activation_notify(userprofile)
+            # notify administrator?
             error = _("User account <strong>%s</strong> is pending activation. Administrators have been notified and will activate this account within the next days. <br>If this account has remained inactive for a long time contact your technical coordinator or GRNET Helpdesk") %userprofile.user.username
             return render_to_response('status.html', {'status': error, 'inactive': True},
                                   context_instance=RequestContext(request))
@@ -1255,22 +1254,6 @@ def selectinst(request):
             return render_to_response('registration/select_institution.html', {'form': form, 'nomail': nomail}, context_instance=RequestContext(request))
 
 
-def user_activation_notify(userprofile):
-    current_site = Site.objects.get_current()
-    subject = render_to_string('registration/activation_email_subject.txt',
-                                   { 'site': current_site })
-    # Email subject *must not* contain newlines
-    subject = ''.join(subject.splitlines())
-    registration_profile = RegistrationProfile.objects.create_profile(userprofile.user)
-    message = render_to_string('registration/activation_email.txt',
-                                   { 'activation_key': registration_profile.activation_key,
-                                     'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-                                     'site': current_site,
-                                     'user': userprofile.user,
-                                     'institution': userprofile.institution })
-    send_new_mail(settings.EMAIL_SUBJECT_PREFIX + subject, 
-                              message, settings.SERVER_EMAIL,
-                             settings.NOTIFY_ADMIN_MAILS, [])
 @never_cache
 def closest(request):
     if request.method == 'GET':
@@ -1696,7 +1679,7 @@ def servdata(request):
 def adminlist(request):
     users = User.objects.all()
     data = [
-        (u.get_profile().institution.get_name('el'),
+        (u.profile.institution.get_name('el'),
          u.first_name + " " + u.last_name,
          m)
         for u in users if

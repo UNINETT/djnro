@@ -72,13 +72,13 @@ body {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-        <a class="brand visible-desktop" href="{% block logourl %}{% url index %}{% endblock %}"><img src="/static/img/logo_holder.png" /></a>
-        <a class="brand hidden-desktop" href="{% url index %}"><img src="/static/img/logo_small.png" /></a>
+        <a class="brand visible-desktop" href="{% block logourl %}{% url 'index' %}{% endblock %}"><img src="/static/img/logo_holder.png" /></a>
+        <a class="brand hidden-desktop" href="{% url 'index' %}"><img src="/static/img/logo_small.png" /></a>
         <div class="nav-collapse collapse">
     {% block topmenu %}
     <ul class="nav">
         <li {% block hometop %}{% endblock %}>
-            <a href="{% url index %}">{% trans "Home" %}</a>
+            <a href="{% url 'index' %}">{% trans "Home" %}</a>
         </li>
         <li {% block faqtop %}{% endblock %}>
             <a href="/faq/{{LANGUAGE_CODE}}/">FAQ</a>
@@ -93,7 +93,7 @@ body {
          <li class="dropdown pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Language" %}: {% for lang in LANGUAGES %}{% ifequal LANGUAGE_CODE lang.0 %}{% trans lang.1 %}{% endifequal %}{% endfor %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <form action="{% url django.views.i18n.set_language %}" method="post" style="display:inline;" id="langform">
+            <form action="{% url 'django.views.i18n.set_language' %}" method="post" style="display:inline;" id="langform">
 								{% csrf_token %}
 								<input name="next" type="hidden" value="{{ next }}" />
 								<input id="langsel" name="language" type="hidden" value="" />
@@ -121,19 +121,19 @@ body {
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
             
-              <li {% block homepage %}{% endblock %}><a href="{% url index %}">{% trans "Home" %}</a></li>
+              <li {% block homepage %}{% endblock %}><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
               <li class="nav-header">{% trans "USERS" %}</li>
               <li {% block whatis %}{% endblock %}><a href="/what/{{LANGUAGE_CODE}}/">{% trans "The service" %}</a></li>
               <li {% block faq %}{% endblock %}><a href="/faq/{{LANGUAGE_CODE}}/">FAQ</a></li>
               <li class="nav-header">{% trans "INSTITUTIONS" %}</li>
-              <li {% block mgmt %}{% endblock %}><a href="{% url managementPage %}">{% trans "Management" %}</a></li>
+              <li {% block mgmt %}{% endblock %}><a href="{% url 'managementPage' %}">{% trans "Management" %}</a></li>
               <li class="nav-header">{% trans "SERVICE" %}</li>
-              <li {% block closest %}{% endblock %}><a href="{% url geolocate %}" target="_blank">{% trans "Closest eduroam" %}</a></li>
-              <li {% block world %}{% endblock %}><a href="{% url world %}">{% trans "World eduroam" %}</a></li>
-              <li {% block participants %}{% endblock %}><a href="{% url participants %}">{% trans "Participants" %}</a></li>
+              <li {% block closest %}{% endblock %}><a href="{% url 'geolocate' %}" target="_blank">{% trans "Closest eduroam" %}</a></li>
+              <li {% block world %}{% endblock %}><a href="{% url 'world' %}">{% trans "World eduroam" %}</a></li>
+              <li {% block participants %}{% endblock %}><a href="{% url 'participants' %}">{% trans "Participants" %}</a></li>
               <li><a href="/static/pebble_app/pebduroam.pbw">{% trans "pebduroam" %}</a></li>
               <li class="nav-header">{% trans "API" %}</li>
-              <li {% block api %}{% endblock %}><a href="{% url api %}">{% trans "Closest point" %}</a></li>
+              <li {% block api %}{% endblock %}><a href="{% url 'api' %}">{% trans "Closest point" %}</a></li>
              
             </ul>
           </div><!--/.well -->

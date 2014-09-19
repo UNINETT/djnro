@@ -96,11 +96,6 @@ class MultiSelectField(models.Field):
         value = self._get_val_from_obj(obj)
         return self.get_db_prep_value(value)
 
-# needed for South compatibility
-
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^edumanage\.models\.MultiSelectField"])
-
 
 
 

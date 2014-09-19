@@ -2,8 +2,8 @@
 {% load i18n %}
 {% load tolocale %}
 {% block crumbs %}
-	<li><a href="{% url manage %}">{% trans "Home" %}</a><span class="divider">/</span></li>
-	<li><a href="{% url services %}">{% trans "Locations" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'manage' %}">{% trans "Home" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'services' %}">{% trans "Locations" %}</a><span class="divider">/</span></li>
 	<li class="active">{% if edit %}{% tolocale form.instance LANGUAGE_CODE %} ({% trans "edit" %}){% else %}{% trans "Add Location" %}{% endif %}</li>
 {% endblock %}
 {% block extrahead %}
@@ -278,7 +278,7 @@
 			 
 			 $("#adduserSubmit").click(function(){
 					$.ajax({
-						url:"{% url adduser %}", 
+						url:"{% url 'adduser' %}", 
 						data:$("#add_user_form").serialize(),
 						type: "POST",
 						cache: false,
@@ -305,7 +305,7 @@
 			 $("#add_contact").click(function(){
 				 $('#myModal').modal('show')
 				 $.ajax({
-						url:"{% url adduser %}",
+						url:"{% url 'adduser' %}",
 						type: "GET",
 						success: function(data){
 							$('#mymodalbody').html(data);

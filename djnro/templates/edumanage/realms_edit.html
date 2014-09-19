@@ -1,8 +1,8 @@
 {% extends "edumanage/welcome.html"%}
 {% load i18n %}
 {% block crumbs %}
-	<li><a href="{% url manage %}">{% trans "Home" %}</a><span class="divider">/</span></li>
-	<li><a href="{% url realms %}">{% trans "Realms" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'manage' %}">{% trans "Home" %}</a><span class="divider">/</span></li>
+	<li><a href="{% url 'realms' %}">{% trans "Realms" %}</a><span class="divider">/</span></li>
 	<li class="active">{% if edit %}{{form.instance.realm}} ({% trans "edit" %}){% else %}{% trans "Add Realm" %}{% endif %}</li>
 {% endblock %}
 {% block extrahead %}
