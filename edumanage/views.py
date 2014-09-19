@@ -305,20 +305,20 @@ def del_service(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete service. Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             service = ServiceLoc.objects.get(institutionid=institution, pk=service_pk)
         except ServiceLoc.DoesNotExist:
             resp['error'] = "Could not get service or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         try:
             service.delete()
         except:
             resp['error'] = "Could not delete service"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Service successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 
 @login_required
@@ -493,20 +493,20 @@ def del_server(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete server. Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             server = InstServer.objects.get(instid=institution, pk=server_pk)
         except InstServer.DoesNotExist:
             resp['error'] = "Could not get server or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         try:
             server.delete()
         except:
             resp['error'] = "Could not delete server"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Server successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 
 @login_required
@@ -602,20 +602,20 @@ def del_realm(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             realm = InstRealm.objects.get(instid=institution, pk=realm_pk)
         except InstRealm.DoesNotExist:
             resp['error'] = "Could not get realm or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         try:
             realm.delete()
         except:
             resp['error'] = "Could not delete realm"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Realm successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 
 @login_required
@@ -712,28 +712,28 @@ def del_contact(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete contact. Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             contactinst = InstitutionContactPool.objects.get(institution=institution, contact__pk=contact_pk)
             contact = contactinst.contact
         except InstitutionContactPool.DoesNotExist:
             resp['error'] = "Could not get contact or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         try:
             for service in ServiceLoc.objects.filter(institutionid=institution):
                 if (contact in service.contact.all() and len(service.contact.all()) == 1):
                     resp['error'] = "Could not delete contact. It is the only contact in service <b>%s</b>.<br>Fix it and try again" %service.get_name(lang="en")
-                    return HttpResponse(json.dumps(resp), mimetype='application/json')
+                    return HttpResponse(json.dumps(resp), content_type='application/json')
             if (contact in institution.institutiondetails.contact.all() and len(institution.institutiondetails.contact.all()) == 1):
                     resp['error'] = "Could not delete contact. It is the only contact your institution.<br>Fix it and try again"
-                    return HttpResponse(json.dumps(resp), mimetype='application/json')
+                    return HttpResponse(json.dumps(resp), content_type='application/json')
             contact.delete()
         except Exception:
             resp['error'] = "Could not delete contact"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Contact successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 
 @login_required
@@ -822,16 +822,16 @@ def del_instrealmmon(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete monitored realm. Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             instrealmmon = InstRealmMon.objects.get(pk=instrealmmon_pk, realm__instid=institution)
             instrealmmon.delete()
         except InstRealmMon.DoesNotExist:
             resp['error'] = "Could not get monitored realm or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Contact successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 @login_required
 @social_active_required
@@ -907,16 +907,16 @@ def del_monlocauthpar(request):
             institution = profile.institution
         except UserProfile.DoesNotExist:
             resp['error'] = "Could not delete realm monitoring parameters. Not enough rights"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp = {}
         try:
             monlocauthpar = MonLocalAuthnParam.objects.get(pk=monlocauthpar_pk, instrealmmonid__realm__instid=institution)
             monlocauthpar.delete()
         except MonLocalAuthnParam.DoesNotExist:
             resp['error'] = "Could not get realm monitoring parameters or you have no rights to delete"
-            return HttpResponse(json.dumps(resp), mimetype='application/json')
+            return HttpResponse(json.dumps(resp), content_type='application/json')
         resp['success'] = "Contact successfully deleted"
-        return HttpResponse(json.dumps(resp), mimetype='application/json')
+        return HttpResponse(json.dumps(resp), content_type='application/json')
 
 @login_required
 @social_active_required
@@ -944,7 +944,7 @@ def adduser(request):
             response_data = {}
             response_data['value'] = "%s" %contact.pk
             response_data['text'] = "%s" %contact
-            return HttpResponse(json.dumps(response_data), mimetype='application/json')
+            return HttpResponse(json.dumps(response_data), content_type='application/json')
         else:
             return render_to_response('edumanage/add_user.html', {'form': form,},
                                       context_instance=RequestContext(request, base_response(request)))
@@ -1030,7 +1030,7 @@ def get_service_points(request):
             response_location['SSID'] = u"%s"%(sl.SSID)
             response_location['key'] = u"%s"%sl.pk
             locs.append(response_location)
-        return HttpResponse(json.dumps(locs), mimetype='application/json')
+        return HttpResponse(json.dumps(locs), content_type='application/json')
     else:
        return HttpResponseNotFound('<h1>Something went really wrong</h1>')
 
@@ -1083,7 +1083,7 @@ def get_all_services(request):
         response_location['SSID'] = u"%s"%(sl.SSID)
         response_location['key'] = u"%s"%sl.pk
         locs.append(response_location)
-    return HttpResponse(json.dumps(locs), mimetype='application/json')
+    return HttpResponse(json.dumps(locs), content_type='application/json')
 
 @never_cache
 def manage_login(request,backend):
@@ -1271,7 +1271,7 @@ def closest(request):
             response_location["lng"] = request_data['lng']
         else:
             response = {"status":"Cannot parse a request without longitude or latitude. Use ?lng=<langitude>&lat=<latitude>&_=<random_num> in your query"}
-            return HttpResponse(json.dumps(response), mimetype='application/json')
+            return HttpResponse(json.dumps(response), content_type='application/json')
         lat = float(request_data['lat'])
         lng = float(request_data['lng'])
         R = 6371
@@ -1294,16 +1294,16 @@ def closest(request):
             if (closest == -1 or d < distances[closest]):
                 closest = counter
                 closestMarker = {"name": pointname, "lat": pointlat, "lng": pointlng, "text": pointtext, 'plainname':plainname}
-        return HttpResponse(json.dumps(closestMarker), mimetype='application/json')
+        return HttpResponse(json.dumps(closestMarker), content_type='application/json')
     else:
         response = {"status":"Use a GET method for your request"}
-        return HttpResponse(json.dumps(response), mimetype='application/json')
+        return HttpResponse(json.dumps(response), content_type='application/json')
 
 @never_cache
 def worldPoints(request):
     if request.method == 'GET':
         points = getPoints()
-        return HttpResponse(json.dumps(points), mimetype='application/json')
+        return HttpResponse(json.dumps(points), content_type='application/json')
 
 @never_cache
 def world(request):
@@ -1472,7 +1472,7 @@ def instxml(request):
                 instLocUrl.attrib["lang"] = url.lang
                 instLocUrl.text = url.url
 
-    return render_to_response("general/institution.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), mimetype="application/xml")
+    return render_to_response("general/institution.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), content_type="application/xml")
 
 @never_cache
 def realmxml(request):
@@ -1527,7 +1527,7 @@ def realmxml(request):
     instTs = ET.SubElement(realmElement, "ts")
     instTs.text = "%s" %realm.ts.isoformat()
 
-    return render_to_response("general/realm.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), mimetype="application/xml")
+    return render_to_response("general/realm.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), content_type="application/xml")
 
 @never_cache
 def realmdataxml(request):
@@ -1591,8 +1591,7 @@ def realmdataxml(request):
     instTs = ET.SubElement(realmdataElement, "ts")
     instTs.text = "%s" %max(datetimes).isoformat()
 
-
-    return render_to_response("general/realm_data.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), mimetype="application/xml")
+    return render_to_response("general/realm_data.xml", {"xml":to_xml(root)},context_instance=RequestContext(request,), content_type="application/xml")
 
 @never_cache
 def servdata(request):
@@ -1660,20 +1659,20 @@ def servdata(request):
 
     if 'HTTP_ACCEPT' in request.META:
         if request.META.get('HTTP_ACCEPT') == "application/json":
-            resp_mimetype = "application/json"
+            resp_content_type = "application/json"
             resp_body = json.dumps(root)
         elif request.META.get('HTTP_ACCEPT') in [
             "text/yaml",
             "text/x-yaml",
             "application/yaml",
             "application/x-yaml" ]:
-            resp_mimetype = request.META.get('HTTP_ACCEPT')
+            resp_content_type = request.META.get('HTTP_ACCEPT')
     try:
-        resp_mimetype
+        resp_content_type
     except NameError:
-        resp_mimetype = "text/yaml"
+        resp_content_type = "text/yaml"
 
-    if resp_mimetype.find("yaml") != -1:
+    if resp_content_type.find("yaml") != -1:
         from yaml import dump
         try:
             from yaml import CDumper as Dumper, \
@@ -1684,10 +1683,10 @@ def servdata(request):
                          Dumper=SafeDumper,
                          allow_unicode=True,
                          default_flow_style=False)
-        resp_mimetype += "; charset=utf-8"
+        resp_content_type += "; charset=utf-8"
 
     return HttpResponse(resp_body,
-                        mimetype=resp_mimetype)
+                        content_type=resp_content_type)
 
 @never_cache
 def adminlist(request):
@@ -1710,7 +1709,7 @@ def adminlist(request):
             ) \
             + "\n"
     return HttpResponse(resp_body,
-                        mimetype="text/plain")
+                        content_type="text/plain")
 
 
 def to_xml(ele, encoding="UTF-8"):
