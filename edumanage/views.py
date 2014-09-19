@@ -1103,16 +1103,15 @@ def user_login(request):
         error_mail = False
         has_entitlement = False
         error = ''
-        username = request.META['HTTP_EPPN']
+        username = lookupShibAttr(settings.SHIB_USERNAME, request.META)
         if not username:
             error_username = True
         firstname = lookupShibAttr(settings.SHIB_FIRSTNAME, request.META)
         lastname = lookupShibAttr(settings.SHIB_LASTNAME, request.META)
         mail = lookupShibAttr(settings.SHIB_MAIL, request.META)
         entitlement = lookupShibAttr(settings.SHIB_ENTITLEMENT, request.META)
+        organization = lookupShibAttr(settings.SHIB_HOMEORGANIZATION, request.META)
 
-        #organization = request.META['HTTP_SHIB_HOMEORGANIZATION']
-        entitlement = request.META['HTTP_SHIB_EP_ENTITLEMENT']
         if settings.SHIB_AUTH_ENTITLEMENT in entitlement.split(";"):
             has_entitlement = True
         if not has_entitlement:
