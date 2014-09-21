@@ -1,6 +1,8 @@
 from django.conf.urls import *
 from django.conf import settings
 from django.shortcuts import render
+from django.views.generic import RedirectView
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -34,7 +36,7 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('edumanage.views',
-    url(r'^$', 'index', name="index"),
+    url(r'^$', RedirectView.as_view(url='/manage/')),
     url(r'^geolocate/?$', 'geolocate', name="geolocate"),
     url(r'^closest/?$', 'closest', name="closest"),
     url(r'^api/?$', 'api', name="api"),
