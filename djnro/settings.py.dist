@@ -116,20 +116,19 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 
 AUTHENTICATION_BACKENDS = (
     'djangobackends.shibauthBackend.shibauthBackend',
-    'djangobackends.ldapBackend.ldapBackend',
-    'social_auth.backends.twitter.TwitterBackend',
+    #'djangobackends.ldapBackend.ldapBackend',
+    #'social_auth.backends.twitter.TwitterBackend',
     #'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.google.GoogleBackend',
+    #'social_auth.backends.google.GoogleBackend',
     #'social_auth.backends.contrib.linkedin.LinkedinBackend',
     #'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     #'social_auth.backends.yahoo.YahooBackend',
-    'social_auth.backends.OpenIDBackend',
-	'django.contrib.auth.backends.ModelBackend',
+    #'social_auth.backends.OpenIDBackend',
+    #'django.contrib.auth.backends.ModelBackend',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -139,12 +138,11 @@ SECRET_KEY = '<put something really random here, eg. %$#%@#$^2312351345#$%345234
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    # Required so that RequestContext is passed into
-    # template
+    # Required so that RequestContext is passed into template
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
@@ -166,21 +164,21 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'edumanage.middleware.WrongBackendExceptionMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ## Uncomment the next line for simple clickjacking protection:
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
     'djangobackends.shibauthBackend.shibauthBackend',
     #'djangobackends.ldapBackend.ldapBackend',
-    'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.google.GoogleBackend',
-    'social_auth.backends.contrib.linkedin.LinkedinBackend',
-    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
-    'social_auth.backends.yahoo.YahooBackend',
-    'social_auth.backends.OpenIDBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    #'social_auth.backends.twitter.TwitterBackend',
+    #'social_auth.backends.facebook.FacebookBackend',
+    #'social_auth.backends.google.GoogleBackend',
+    #'social_auth.backends.contrib.linkedin.LinkedinBackend',
+    #'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+    #'social_auth.backends.yahoo.YahooBackend',
+    #'social_auth.backends.OpenIDBackend',
+    #'django.contrib.auth.backends.ModelBackend',
 
 )
 
@@ -197,7 +195,6 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'longerusername',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -205,17 +202,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
-    'django.contrib.markup',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django.contrib.staticfiles',
     'edumanage',
     'accounts',
-    'south',
-    'registration',
     'tinymce',
-    'social_auth',
     'utils',
+    ## Uncomment if you want social auth
+    #'social_auth',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -286,11 +280,11 @@ TINYMCE_DEFAULT_CONFIG = {
 # }
 
 # For development instances you can deploy the provided dummy cache backend
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 #Name_i18n, URL_i18n, language choice field
 # If it's the same with LANGUAGES, simply do URL_NAME_LANGS = LANGUAGES
@@ -309,9 +303,10 @@ NRO_DOMAIN_MAIN_URL = "http://www.example.com"
 NRO_PROV_BY_DICT = {"name": "GRNET NOC", "url": "//noc.grnet.gr"}
 #provider social media contact (Use: // to preserve https)
 NRO_PROV_SOCIAL_MEDIA_CONTACT = [
-                                {"url":"//facebook.com/noc.grnet.gr", "icon":"/static/img/facebook_img.png", "name":"Facebook"},
-                                {"url":"//twitter.com/grnetnoc", "icon":"/static/img/twitter_img.png", "name":"Twitter"},
-                                ]
+    {"url":"//facebook.com/noc.grnet.gr", "icon":"/static/img/facebook_img.png", "name":"Facebook"},
+    {"url":"//twitter.com/grnetnoc", "icon":"/static/img/twitter_img.png", "name":"Twitter"},
+]
+
 # map center (lat, lng)
 MAP_CENTER = (36.97, 23.71)
 #Helpdesk, used in base.html:
@@ -319,8 +314,8 @@ NRO_DOMAIN_HELPDESK_DICT = {"name": _("Domain Helpdesk"), 'email':'helpdesk@exam
 
 #Countries for Realm model:
 REALM_COUNTRIES = (
-             ('country_2letters', 'Country' ),
-            )
+    ('country_2letters', 'Country'),
+)
 
 ##### LDAP BACKEND ######
 
@@ -384,25 +379,31 @@ SOCIAL_AUTH_PIPELINE = (
 ###### Eduroam CAT ###########
 # Important!!! Make sure you include a 'production' instance record
 CAT_INSTANCES = (
-                 ('production', 'Production Instance'),
-                 ('testing', 'Testing Instance'),
-                 ('dev1', 'Dev1 Instance'),
-                 )
+    ('production', 'Production Instance'),
+    ('testing', 'Testing Instance'),
+    ('dev1', 'Dev1 Instance'),
+)
 
 CAT_AUTH = {
-            'production':{"CAT_API_KEY":"<provided API key>",
-                          "CAT_API_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                          "CAT_PROFILES_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                          "CAT_FEDMGMT_URL":"https://cat.eduroam.org/admin/overview_federation.php"},
-            'testing':{"CAT_API_KEY":"<provided API key>",
-                        "CAT_API_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                        "CAT_PROFILES_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                        "CAT_FEDMGMT_URL":"https://cat.eduroam.org/admin/overview_federation.php"},
-            'dev1':{"CAT_API_KEY":"<provided API key>",
-                        "CAT_API_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                        "CAT_PROFILES_URL":"https://cat-test.eduroam.org/test/admin/API.php",
-                        "CAT_FEDMGMT_URL":"https://cat.eduroam.org/admin/overview_federation.php"},
-            }
+    'production': {
+        "CAT_API_KEY":      "<provided API key>",
+        "CAT_API_URL":      "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_FEDMGMT_URL":  "https://cat.eduroam.org/admin/overview_federation.php"
+    },
+    'testing':{
+        "CAT_API_KEY":      "<provided API key>",
+        "CAT_API_URL":      "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_FEDMGMT_URL":  "https://cat.eduroam.org/admin/overview_federation.php"
+    },
+    'dev1':{
+        "CAT_API_KEY":      "<provided API key>",
+        "CAT_API_URL":      "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_PROFILES_URL": "https://cat-test.eduroam.org/test/admin/API.php",
+        "CAT_FEDMGMT_URL":  "https://cat.eduroam.org/admin/overview_federation.php"
+    },
+}
 
 import _version
 SW_VERSION = _version.VERSION
