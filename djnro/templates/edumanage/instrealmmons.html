@@ -116,7 +116,10 @@ $("#delmonlocauthparSubmit").click(function(){
     		{% block instrealmmon %}class="active"{% endblock %}
             {% block subcontent %}
 
-	              <h4>{% trans "Monitored Realms" %}</h4>
+	              <h4>
+	                {% trans "Monitored Realms" %}
+	                <a href="{% url 'edit-instrealmmon' %}" class="btn btn-primary pull-right">{% trans "Add monitored realm" %}</a>
+	              </h4>
 	              <hr>
 	              {% if messages %}
                     <table class="table table-condensed">
@@ -126,10 +129,8 @@ $("#delmonlocauthparSubmit").click(function(){
                         {% endfor %}
                     </table>
                   {% endif %}
-	              <div><a href="{% url 'edit-instrealmmon' %}" class="btn btn-primary">{% trans "Add monitored realm" %}</a></div>
-	              <div class="span10"></div>
 	              {% if realms %}
-	              <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" width="100%" id="table">
+	              <table cellpadding="0" cellspacing="0" border="0" class="table" width="100%" id="table">
 					<thead>
 					<tr>
 						<th>{% trans "Realm" %}</th>

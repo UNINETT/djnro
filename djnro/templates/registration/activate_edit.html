@@ -24,25 +24,25 @@
         {{ form.non_field_errors}}
     </p>
     {% endif %}
-        <div class="control-group {% if form.user.errors %} error {% endif %}">
-        <label class="control-label" for="id_user"><b>{% trans "User" %}</b></label>
-        <div class="controls">
+        <div class="form-group {% if form.user.errors %} error {% endif %}">
+        <label class="col-sm-3 control-label" for="id_user"><b>{% trans "User" %}</b></label>
+        <div class="col-sm-9">
             {{ form.user }}
             {% if form.user.errors %} <span class="help-inline"> {{ form.user.errors|join:", " }} </span>
             {% endif %} <span class="help-block"> {{ form.user.help_text }}</span>
         </div>
     </div>
-    <div class="control-group {% if form.institution.errors %} error {% endif %}">
-        <label class="control-label" for="id_institution"><b>{% trans "Institution" %}</b></label>
-        <div class="controls">
+    <div class="form-group {% if form.institution.errors %} error {% endif %}">
+        <label class="col-sm-3 control-label" for="id_institution"><b>{% trans "Institution" %}</b></label>
+        <div class="col-sm-9">
             {{ form.institution }}
             {% if form.institution.errors %} <span class="help-inline"> {{ form.institution.errors|join:", " }} </span>
             {% endif %} <span class="help-block"> {{ form.institution.help_text }}</span>
         </div>
     </div>
 
-    <div class="control-group">
-        <div class="controls">
+    <div class="form-group">
+        <div class="col-sm-9">
             <button type="submit" id="applybutton" value="Apply" class="btn btn-primary">
             {% trans "Activate" %}</button>
         </div>

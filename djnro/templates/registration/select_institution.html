@@ -22,7 +22,7 @@
 					</p>
 					{% if nomail %}
 					<div class="input-group {% if form.email.errors %} error {% endif %}">
-						<p><label class="control-label" for="id_email">
+						<p><label class="col-sm-3 control-label" for="id_email">
 							<b>{% trans "Email" %}</b>
 						</label></p>
 								{{ form.email }}
@@ -41,10 +41,10 @@
 					</p>
 					{% endif %}
 					<div class="input-group {% if form.institution.errors %} error {% endif %}">
-						<p><label class="control-label" for="id_institution">
+						<p><label class="col-sm-3 control-label" for="id_institution">
 							<b class="uninett-fontColor-white">{% trans "Institution" %}</b>
 						</label></p>
-						<div class="controls">
+						<div class="col-sm-9">
 							{{ form.institution }}
 							{% if form.institution.errors %}
 							<p class="alert alert-warning"> {{ form.institution.errors|join:", " }}
@@ -58,8 +58,8 @@
 						</div>
 					</div>
 
-					<div class="control-group">
-						<div class="controls">
+					<div class="form-group">
+						<div class="col-sm-9">
 							<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
 							{% trans "Apply" %}</button>
 						</div>

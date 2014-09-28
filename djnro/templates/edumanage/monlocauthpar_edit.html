@@ -32,46 +32,46 @@ $(document).ready(function() {
 	<div style="display: none">
 		{{form.instrealmmonid}}
 	</div>
-	<div class="control-group {% if form.ertype.errors %} error {% endif %}">
-		<label class="control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
-		<div class="controls">
-			<input class="input" id="disabledInput" type="text" placeholder="{{realm.realm}}" disabled>
+	<div class="form-group {% if form.ertype.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
+		<div class="col-sm-9">
+			<input class="form-control" id="disabledInput" type="text" placeholder="{{realm.realm}}" disabled>
 		</div>
 	</div>
-	<div class="control-group {% if form.eap_method.errors %} error {% endif %}">
-		<label class="control-label" for="id_eap_method"><b>{% trans "EAP Method" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.eap_method.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_eap_method"><b>{% trans "EAP Method" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.eap_method }}
 			{% if form.eap_method.errors %} <span class="help-inline"> {{ form.eap_method.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.eap_method.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.phase2.errors %} error {% endif %}">
-		<label class="control-label" for="id_phase2"><b>{% trans "EAP2 Method" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.phase2.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_phase2"><b>{% trans "EAP2 Method" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.phase2 }}
 			{% if form.phase2.errors %} <span class="help-inline"> {{ form.phase2.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.phase2.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.username.errors %} error {% endif %}">
-		<label class="control-label" for="id_username"><b>{% trans "Username" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.username.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_username"><b>{% trans "Username" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.username }}
 			{% if form.username.errors %} <span class="help-inline"> {{ form.username.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.username.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.passwp.errors %} error {% endif %}">
-		<label class="control-label" for="id_passwp"><b>{% trans "Password" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.passwp.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_passwp"><b>{% trans "Password" %}</b></label>
+		<div class="col-sm-9">
 			<input type="password" maxlength="80" name="passwp" id="id_passwp" {% if edit %}value='{{form.instance.passwp}}'{% endif %} {% if form.data.passwp %}value='{{form.data.passwp}}'{% endif %}>
 			{% if form.passwp.errors %} <span class="help-inline"> {{ form.passwp.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.passwp.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group">
-		<div class="controls">
+	<div class="form-group">
+		<div class="col-sm-9">
 			<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
 			{% trans "Apply" %}</button>
 		</div>

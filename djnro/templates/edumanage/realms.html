@@ -81,7 +81,14 @@ $("#delrealmSubmit").click(function(){
             {% block subcontent %}
 
 	            	
-	              <h4>Realms</h4>
+	              <h4>
+	                Realms
+	                {% if institution.ertype == 1 or institution.ertype == 3 %}
+	                <a href="{% url 'edit-realms' %}" class="btn btn-primary pull-right">
+	                {% trans "Add new realm" %}
+	                </a>
+	                {% endif %}
+	              </h4>
 	              <hr>
 	              {% if messages %}
 	                <table class="table table-condensed">
@@ -91,11 +98,10 @@ $("#delrealmSubmit").click(function(){
 					    {% endfor %}
 					</table>
 				  {% endif %}
-	              <div>{% if institution.ertype == 1 or institution.ertype == 3 %}<a href="{% url 'edit-realms' %}" class="btn btn-primary">{% trans "Add new realm" %}</a>{% endif %}</div>
 	              <div class="span10"></div>
 	              {% if institution.ertype == 1 or institution.ertype == 3 %}
 		              {% if realms %}
-		              <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" width="100%" id="table">
+		              <table cellpadding="0" cellspacing="0" border="0" class="table" width="100%" id="table">
 						<thead>
 						<tr>
 							<th>Realm</th>

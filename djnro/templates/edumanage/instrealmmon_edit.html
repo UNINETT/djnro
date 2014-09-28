@@ -16,7 +16,15 @@
 			
 {% block homeactive %}{% endblock %}
 {% block instrealmmon %}class="active"{% endblock %}
-{% block subcontent %} <h4>{% if edit %}Monitored realm: {{form.instance.realm}} ({% trans "edit" %}){% else %}{% trans "Add Monitored Realm" %}{% endif %}</h4>
+{% block subcontent %}
+{% load widget_tweaks %}
+<h4>
+{% if edit %}
+{% trans "Edit" %} Monitored realm: {{form.instance.realm}}
+{% else %}
+{% trans "Add Monitored Realm" %}
+{% endif %}
+</h4>
 <hr>
 <form method="POST" class="form-horizontal">
 	{% csrf_token %}
@@ -26,24 +34,24 @@
 	<div style="display: none">
 		{{form.instid}}
 	</div>
-	<div class="control-group {% if form.realm.errors %} error {% endif %}">
-		<label class="control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.realm.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.realm }}
 			{% if form.realm.errors %} <span class="help-inline"> {{ form.realm.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.realm.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.mon_type.errors %} error {% endif %}">
-		<label class="control-label" for="id_mon_type"><b>{% trans "Monitoring Method" %}</b></label>
-		<div class="controls">
+	<div class="form-group {% if form.mon_type.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_mon_type"><b>{% trans "Monitoring Method" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.mon_type }}
 			{% if form.mon_type.errors %} <span class="help-inline"> {{ form.mon_type.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.mon_type.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group">
-		<div class="controls">
+	<div class="form-group">
+		<div class="col-sm-9">
 			<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
 			{% trans "Apply" %}</button>
 		</div>

@@ -208,6 +208,7 @@ INSTALLED_APPS = (
     'accounts',
     'tinymce',
     'utils',
+    'widget_tweaks',
     ## Uncomment if you want social auth
     #'social_auth',
 )

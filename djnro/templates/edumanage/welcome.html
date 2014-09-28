@@ -167,11 +167,13 @@ $.get("{% url 'get-service-points' %}", function(data){
 {% load tolocale %}
 {% block content %}
 
-<main class="container">
+<div class="container">
 	<div class="row">
-		<div class="col-lg-4 col-md-4 hidden-xs">
-			<div class="uninett-color-white uninett-padded gutter">
-				<ul class="nav nav-list">
+		<div class="col-lg-3 col-md-3 col-xs-12">
+			<nav class="uninett-color-white uninett-padded gutter">
+				<p class="h4">edumanage</p>
+				<hr>
+				<ul class="nav nav-list text-nowrap">
 					<li {% block homeactive %}class="active"{% endblock %}>
 						<a href="{% url 'manage' %}">{% trans "Home" %}</a>
 					</li>
@@ -202,10 +204,10 @@ $.get("{% url 'get-service-points' %}", function(data){
 					
 					{% endif %}
 				</ul>
-			</div>
+			</nav>
 		</div>
-		<div class="col-lg-8 col-md-8">
-			<div class="uninett-color-white uninett-padded gutter">
+		<div class="col-lg-9 col-md-9 col-xs-12">
+			<main class="uninett-color-white uninett-padded gutter">
 			{% if not institution_exists %}
 				<table class="table table-condensed">
 					<tr class="error"><td>You are not associated with any institution. Please contact your administrator<td></tr>
@@ -223,9 +225,9 @@ $.get("{% url 'get-service-points' %}", function(data){
 				{% endif %}
 			
 				{% endblock %}{% endif %}
-			</div><!--/row-->
+			</main><!--/row-->
 		</div><!--/span-->
 	</div><!--/row-->
-</main>
+</div>
 {% endblock %}
 

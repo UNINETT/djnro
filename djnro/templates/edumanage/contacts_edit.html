@@ -16,7 +16,15 @@
 			
 {% block homeactive %}{% endblock %}
 {% block contactsactive %}class="active"{% endblock %}
-{% block subcontent %} <h4>{% if edit %}{{form.instance.name}} ({% trans "edit" %}){% else %}{% trans "Add Contact" %}{% endif %}</h4>
+{% block subcontent %}
+{% load widget_tweaks %}
+<h4>
+{% if edit %}
+{% trans "Edit" %} {{form.instance.name}}
+{% else %}
+{% trans "Add Contact" %}
+{% endif %}
+</h4>
 <hr>
 <form method="POST" class="form-horizontal">
 	{% csrf_token %}
@@ -28,36 +36,33 @@
 	<div style="display: none">
 		{{form.instid}}
 	</div>
-	<div class="control-group {% if form.name.errors %} error {% endif %}">
-		<label class="control-label" for="id_name"><b>{% trans "Name" %}</b></label>
-		<div class="controls">
-			{{ form.name }}
+	<div class="form-group {% if form.name.errors %} error {% endif %}">
+		<label class="col-sm-2 control-label" for="id_name"><b>{% trans "Name" %}</b></label>
+		<div class="col-sm-10">
+			{{ form.name|attr:"class:form-control" }}
 			{% if form.name.errors %} <span class="help-inline"> {{ form.name.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.name.help_text }}</span>
 		</div>
 		</div>
-		<div class="control-group {% if form.email.errors %} error {% endif %}">
-		<label class="control-label" for="id_email"><b>{% trans "Email" %}</b></label>
-		<div class="controls">
-			{{ form.email }}
+		<div class="form-group {% if form.email.errors %} error {% endif %}">
+		<label class="col-sm-2 control-label" for="id_email"><b>{% trans "Email" %}</b></label>
+		<div class="col-sm-10">
+			{{ form.email|attr:"class:form-control" }}
 			{% if form.email.errors %} <span class="help-inline"> {{ form.email.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.email.help_text }}</span>
 		</div>
 		</div>
-		<div class="control-group {% if form.phone.errors %} error {% endif %}">
-		<label class="control-label" for="id_phone"><b>{% trans "Phone" %}</b></label>
-		<div class="controls">
-			{{ form.phone }}
+		<div class="form-group {% if form.phone.errors %} error {% endif %}">
+		<label class="col-sm-2 control-label" for="id_phone"><b>{% trans "Phone" %}</b></label>
+		<div class="col-sm-10">
+			{{ form.phone|attr:"class:form-control" }}
 			{% if form.phone.errors %} <span class="help-inline"> {{ form.phone.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.phone.help_text }}</span>
 		</div>
-		</div>
-	<div class="control-group">
-		<div class="controls">
-			<button type="submit" id="applybutton" value="Apply" class="btn btn-primary">
-			{% trans "Apply" %}</button>
-		</div>
 	</div>
+	<button type="submit" id="applybutton" value="Apply" class="btn btn-primary">
+		{% trans "Apply" %}
+	</button>
 </form>
 {% endblock %}
          

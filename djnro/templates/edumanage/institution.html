@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block extrahead %}
 	<style type="text/css">
-		.control-label{
+		.col-sm-3 control-label{
 			padding-top: 0px !important;
 			width: auto !important;
 		}
@@ -15,7 +15,10 @@
 			{% block homeactive %}{% endblock %}
     		{% block instactive %}class="active"{% endblock %}
             {% block subcontent %}
-              <h4>{% trans "Institution" %}</h4>
+              <h4>
+                  {% trans "Institution" %}
+                  <a class="btn btn-primary pull-right" href="{% url 'edit-institution' institution.pk %}">{% trans "Edit" %}</a>
+              </h4>
               		<hr>
               		{% if messages %}
                     <table class="table table-condensed">
@@ -31,74 +34,87 @@
 <div class="form-horizontal">
 
 
-		<div class="control-group">
-		<label class="control-label" for="id_ertype">{% trans "Name" %}</label>
-		<div class="controls">
+		<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_ertype"><b>{% trans "Name" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{% tolocale institution LANGUAGE_CODE %}
+			</p>
 		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label" for="id_ertype">{% trans "Type" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_ertype"><b>{% trans "Type" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.get_ertype_display }}
+			</p>
 		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label" for="id_address_street">{% trans "Address Street" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_address_street"><b>{% trans "Address Street" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.institutiondetails.address_street }}
+			</p>
 		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label" for="id_address_city">{% trans "Address City" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_address_city"><b>{% trans "Address City" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.institutiondetails.address_city }}
+			</p>
 		</div>
 	</div>
-	<div class="control-group">
-		<label class="control-label" for="id_contact">{% trans "Contacts" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_contact"><b>{% trans "Contacts" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 				{% for contact in institution.institutiondetails.contact.all %}
         		{{contact.name}} (<a href="mailto:{{contact.email}}">{{contact.email}}</a> - tel:{{contact.phone}}){% if not forloop.last %}<br>{% endif %}
         	{% endfor %}
+			</p>
 		</div>
 	</div>
-    <div class="control-group ">
-        <label class="control-label" for="id_urls">{% trans "Urls" %}</label>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="id_urls"><b>{% trans "Urls" %}</b></label>
         
-        <div class="controls">
+        <div class="col-sm-9">
+			<p class="form-control-static">
         {% for url in institution.institutiondetails.url.all %}
         		<a href="{{url.url}}" target="_blank">{{url.url}}</a> - {{url.get_urltype_display}} ({{url.get_lang_display}}){% if not forloop.last %}<br>{% endif %}
         {% endfor %}
+			</p>
         </div>
     </div>
     {% if institution.ertype == 2 or institution.ertype == 3 %}
-	<div class="control-group">
-		<label class="control-label" for="id_oper_name">{% trans "Domain Name" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_oper_name"><b>{% trans "Domain Name" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.institutiondetails.oper_name }}
+			</p>
 		</div>
 	</div>
 	{% endif %}
 	{% if institution.ertype == 1 or institution.ertype == 3 %}
-	<div class="control-group">
-		<label class="control-label" for="id_number_user">{% trans "Number User" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_number_user"><b>{% trans "Number User" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.institutiondetails.number_user }}
+			</p>
 		</div>
 	</div>
 	{% endif %}
-	<div class="control-group">
-		<label class="control-label" for="id_number_id">{% trans "Number of IDs" %}</label>
-		<div class="controls">
+	<div class="form-group">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>{% trans "Number of IDs" %}</b></label>
+		<div class="col-sm-9">
+			<p class="form-control-static">
 			{{ institution.institutiondetails.number_id }}
+			</p>
 		</div>
 	</div>
-	<div class="control-group">
-        <div class="controls">
-            <a class="btn btn-primary" href="{% url 'edit-institution' institution.pk %}">{% trans "Edit" %}</a>
-        </div>
-    </div>
             </div>   
               		{% else %}
               			<div>{% trans "No institution details defined yet for" %} {% tolocale institution LANGUAGE_CODE%} <a href="{% url 'edit-institution' institution.pk %}" class="btn btn-small btn-primary">{% trans "edit" %}</a></div>

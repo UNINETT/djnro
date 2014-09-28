@@ -16,7 +16,15 @@
 			
 {% block homeactive %}{% endblock %}
 {% block realmsactive %}class="active"{% endblock %}
-{% block subcontent %}<h4>{% if edit %}{{form.instance.realm}} ({% trans "edit" %}){% else %}{% trans "Add Realm" %}{% endif %}</h4>
+{% block subcontent %}
+{% load widget_tweaks %}
+<h4>
+{% if edit %}
+{% trans "Edit" %} {{form.instance.realm}}
+{% else %}
+{% trans "Add Realm" %}
+{% endif %}
+</h4>
 <hr>
 {% if messages %}
 	<table class="table table-condensed">
@@ -36,28 +44,25 @@
 	<div style="display: none">
 		{{form.instid}}
 	</div>
-	<div class="control-group {% if form.realm.errors %} error {% endif %}">
-		<label class="control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
-		<div class="controls">
-			{{ form.realm }}
+	<div class="form-group {% if form.realm.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_realm"><b>{% trans "Realm" %}</b></label>
+		<div class="col-sm-9">
+			{{ form.realm|attr:"class:form-control" }}
 			{% if form.realm.errors %} <span class="help-inline"> {{ form.realm.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.realm.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.proxyto.errors %} error {% endif %}">
-		<label class="control-label" for="id_proxyto"><b>{% trans "Proxy to Servers" %}</b></label>
-		<div class="controls">
-			{{ form.proxyto }}
+	<div class="form-group {% if form.proxyto.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_proxyto"><b>{% trans "Proxy to Servers" %}</b></label>
+		<div class="col-sm-9">
+			{{ form.proxyto|attr:"class:form-control" }}
 			{% if form.proxyto.errors %}<span class="help-inline"> {{ form.proxyto.errors|join:", " }} </span>
 			{% endif %}<span class="help-block">{% trans "Only IdP and IdP/SP server types are allowed" %}</span>
 		</div>
 	</div>
-	<div class="control-group">
-		<div class="controls">
-			<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
-			{% trans "Apply" %}</button>
-		</div>
-	</div>
+	<button type="submit" id="applybutton" value="Apply" class="btn btn-primary">
+		{% trans "Apply" %}
+	</button>
 </form>
 {% endif %}
 {% endblock %}

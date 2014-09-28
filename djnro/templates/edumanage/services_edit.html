@@ -330,8 +330,15 @@
 {% block homeactive %}{% endblock %}
 {% block servicesactive %}class="active"{% endblock %}
 {% block subcontent %}
+{% load widget_tweaks %}
 
-<h4>{% if edit %}{% tolocale form.instance LANGUAGE_CODE %} ({% trans "edit" %}){% else %}{% trans "Add Location" %}{% endif %}</h4>
+<h4>
+{% if edit %}
+{% trans "Edit" %} {% tolocale form.instance LANGUAGE_CODE %}
+{% else %}
+{% trans "Add Location" %}
+{% endif %}
+</h4>
 <hr>
 <form method="POST" class="form-horizontal">
 	{% csrf_token %}
@@ -343,25 +350,41 @@
 	<div style="display: none">
 		{{form.institutionid}}
 	</div>
-	<div class="control-group {% if form.longitude.errors or form.latitude.errors %} error {% endif %}">
-		<label class="control-label" for="id_map_canvas"><b>{% trans "Location" %}</b></label>
+	<div class="form-group {% if form.longitude.errors or form.latitude.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_map_canvas"><b>{% trans "Location" %}</b></label>
 		
-		<div class="controls">
+		<div class="col-sm-9">
 		
 			<div id="map_canvas" style="width:100%; height:350px;"></div>
-			<span class="help-block">{{ form.longitude.help_text }}</span>
-		</div>
-		<div class="controls" style="margin-top: 5px; margin-bottom: 5px;">
-		{% trans "Search location" %}: <input type="text" value="" id="searchbox" style=" width: 300px;">
-		</div>
-		<div class="controls">
-			 Lat: {{ form.latitude }} Lng: {{ form.longitude }}
+			<p class="help-block">{{ form.longitude.help_text }}</p>
+			<label class="col-sm-4 control-label" for="searchbox">
+				<b>{% trans "Search location" %}</b>:
+			</label>
+			<div class="col-sm-8">
+				<input type="text" value="" id="searchbox" class="form-control">
+			</div>
+			<label class="col-sm-2 control-label">
+				<b>Lat</b>:
+			</label>
+			<div class="col-sm-4">
+				{{ form.latitude|attr:"class:form-control" }}
+			</div>
+			<label class="col-sm-2 control-label">
+				<b>Lng</b>:
+			</label>
+			<div class="col-sm-4">
+				{{ form.longitude|attr:"class:form-control" }}
+			</div>
+			<div class="col-sm-6 text-center">
 			<button class="btn btn-info disabled" id="updatemap" disabled="disabled">
 				{% trans "Update Map" %}
 			</button>
+			</div>
+			<div class="col-sm-6 text-center">
 			<button class="btn btn-info" id="myloc">
 				{% trans "Current Location" %}
 			</button>
+			</div>
 			{% if form.longitude.errors %} <span class="help-inline"> {{ form.longitude.errors|join:", " }} </span>
 			{% endif %}
 			{% if form.latitude.errors %} <span class="help-inline"> {{ form.latitude.errors|join:", " }} </span>
@@ -369,10 +392,10 @@
 		</div>
 	</div>
 
-	<div class="control-group {% for err in services_form.errors %}{% if err|length > 0 %}error{% endif %}{% endfor %}{% if services_form.non_form_errors %}error{% endif %}">
-		<label class="control-label" for="id_address_city"><b>{% trans "Location Name" %}</b></label>
+	<div class="form-group {% for err in services_form.errors %}{% if err|length > 0 %}error{% endif %}{% endfor %}{% if services_form.non_form_errors %}error{% endif %}">
+		<label class="col-sm-3 control-label" for="id_address_city"><b>{% trans "Location Name" %}</b></label>
 		{{services_form.management_form}}
-		<div class="controls">
+		<div class="col-sm-9">
 		{% for err in services_form.errors %}{% if err|length > 0 %}<span class="help-inline"></span>{% endif %}{% endfor %}
 		{% if services_form.non_form_errors %} <span class="help-inline"> {{ services_form.non_form_errors|join:", "}}</span>{% endif %}
 			<table id="locsform"><thead><tr><td>{% trans "Name" %}</td><td>{% trans "Language" %}</td></tr></thead><tbody>
@@ -381,106 +404,110 @@
 		
 		
 			<tr id="{{ formset_s.prefix }}-row">
-			<td> {% if formset_s.instance.pk %}{{ formset_s.DELETE }}{% endif %}{{ formset_s.name }}{% if formset_s.name.errors %}<br><div class="help-inline"> {{ formset_s.name.errors|join:", " }} </div>{% endif %}</td> 
-             <td>{{formset_s.lang}}{% if formset_s.lang.errors %}<br><p class="help-inline"> {{ formset_s.lang.errors|join:", " }} </p>{% endif %}</td>
-             
+			<td> {% if formset_s.instance.pk %}{{ formset_s.DELETE }}{% endif %}{{ formset_s.name|attr:"class:form-control" }}{% if formset_s.name.errors %}<br><div class="help-inline"> {{ formset_s.name.errors|join:", " }} </div>{% endif %}</td> 
+             <td>{{formset_s.lang|attr:"class:form-control"}}{% if formset_s.lang.errors %}<br><p class="help-inline"> {{ formset_s.lang.errors|join:", " }} </p>{% endif %}</td>
+             <td></td>
 		</tr>
 		{% endfor %}
 		</tbody></table>
 		</div>
 	</div>
-	<div class="control-group {% if form.address_street.errors %} error {% endif %}">
-		<label class="control-label" for="id_address_street"><b>{% trans "Address Street" %}</b></label>
-		<div class="controls">
-			{{ form.address_street }}
+	<div class="form-group {% if form.address_street.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_address_street"><b>{% trans "Address Street" %}</b></label>
+		<div class="col-sm-9">
+			{{ form.address_street|attr:"class:form-control" }}
 			{% if form.address_street.errors %} <span class="help-inline"> {{ form.address_street.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.address_street.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.address_city.errors %} error {% endif %}">
-		<label class="control-label" for="id_address_city"><b>{% trans "Address City" %}</b></label>
-		<div class="controls">
-			{{ form.address_city }}
+	<div class="form-group {% if form.address_city.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_address_city"><b>{% trans "Address City" %}</b></label>
+		<div class="col-sm-9">
+			{{ form.address_city|attr:"class:form-control" }}
 			{% if form.address_city.errors %} <span class="help-inline"> {{ form.address_city.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.address_city.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.SSID.errors %} error {% endif %}">
-		<label class="control-label" for="id_url"><b>SSID</b></label>
-		<div class="controls">
-			{{ form.SSID }}
+	<div class="form-group {% if form.SSID.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_url"><b>SSID</b></label>
+		<div class="col-sm-9">
+			{{ form.SSID|attr:"class:form-control" }}
 			{% if form.SSID.errors %} <span class="help-inline"> {{ form.SSID.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.SSID.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.contact.errors %} error {% endif %}">
-		<label class="control-label" for="id_contact">{% trans "Contacts" %}</label>
-		<div class="controls">
-			{{ form.contact }} <button class="btn btn-small btn-info" id="add_contact"><i class="icon-plus-sign icon-white"></i>Add...</button>
+	<div class="form-group {% if form.contact.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_contact"><b>{% trans "Contacts" %}</b></label>
+		<div class="col-sm-9">
+			{{ form.contact|attr:"class:form-control" }}
 			{% if form.contact.errors %} <span class="help-inline"> {{ form.contact.errors|join:", " }} </span>
-			{% endif %} <span class="help-block"> {{ form.contact.help_text }}</span>
+			{% endif %}
+			<span class="help-block">
+				<button class="btn btn-small btn-info pull-right" id="add_contact"><i class="icon-plus-sign icon-white"></i>Add…</button>
+				{{ form.contact.help_text }}
+			</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.enc_level.errors %} error {% endif %}">
-		<label class="control-label" for="id_oper_name">{% trans "Encryption Level" %}</label>
-		<div class="controls">
+	<div class="form-group {% if form.enc_level.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_oper_name"><b>{% trans "Encryption Level" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.enc_level }}
 			{% if form.enc_level.errors %} <span class="help-inline"> {{ form.enc_level.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.enc_level.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.port_restrict.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_user">{% trans "Port Restrict" %}</label>
-		<div class="controls">
+	<div class="form-group {% if form.port_restrict.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_user"><b>{% trans "Port Restrict" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.port_restrict }}
 			{% if form.port_restrict.errors %} <span class="help-inline"> {{ form.port_restrict.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.port_restrict.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.transp_proxy.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_id">{% trans "Transparent Proxy" %}</label>
-		<div class="controls">
+	<div class="form-group {% if form.transp_proxy.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>{% trans "Transparent Proxy" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.transp_proxy }}
 			{% if form.transp_proxy.errors %} <span class="help-inline"> {{ form.transp_proxy.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.transp_proxy.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.IPv6.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_id">IPv6</label>
-		<div class="controls">
+	<div class="form-group {% if form.IPv6.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>IPv6</b></label>
+		<div class="col-sm-9">
 			{{ form.IPv6 }}
 			{% if form.IPv6.errors %} <span class="help-inline"> {{ form.IPv6.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.IPv6.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.NAT.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_id">NAT</label>
-		<div class="controls">
+	<div class="form-group {% if form.NAT.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>NAT</b></label>
+		<div class="col-sm-9">
 			{{ form.NAT }}
 			{% if form.NAT.errors %} <span class="help-inline"> {{ form.NAT.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.NAT.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.AP_no.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_id"><b>{% trans "AP number" %}</b></label>
-		<div class="controls">
-			{{ form.AP_no }}
+	<div class="form-group {% if form.AP_no.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>{% trans "AP number" %}</b></label>
+		<div class="col-sm-2">
+			{{ form.AP_no|attr:"class:form-control" }}
 			{% if form.AP_no.errors %} <span class="help-inline"> {{ form.AP_no.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.AP_no.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% if form.wired.errors %} error {% endif %}">
-		<label class="control-label" for="id_number_id">{% trans "Wired" %}</label>
-		<div class="controls">
+	<div class="form-group {% if form.wired.errors %} error {% endif %}">
+		<label class="col-sm-3 control-label" for="id_number_id"><b>{% trans "Wired" %}</b></label>
+		<div class="col-sm-9">
 			{{ form.wired }}
 			{% if form.wired.errors %} <span class="help-inline"> {{ form.wired.errors|join:", " }} </span>
 			{% endif %} <span class="help-block"> {{ form.wired.help_text }}</span>
 		</div>
 	</div>
-	<div class="control-group {% for err in urls_form.errors %}{% if err|length > 0 %}error{% endif %}{% endfor %}{% if urls_form.non_form_errors %}error{% endif %}">
-		<label class="control-label" for="id_urls">{% trans "Urls" %}</label>
+	<div class="form-group {% for err in urls_form.errors %}{% if err|length > 0 %}error{% endif %}{% endfor %}{% if urls_form.non_form_errors %}error{% endif %}">
+		<label class="col-sm-3 control-label" for="id_urls"><b>{% trans "Urls" %}</b></label>
 		{{urls_form.management_form}}
-		<div class="controls">
+		<div class="col-sm-9">
 		{% for err in urls_form.errors %}{% if err|length > 0 %}<span class="help-inline">{{err}}</span>{% endif %}{% endfor %}
 		{% if urls_form.non_form_errors %} <span class="help-inline"> {{ urls_form.non_form_errors|join:", "}}</span>{% endif %}
 			<table id="urlsform"><thead><tr><td>{% trans "url" %}</td><td>{% trans "type" %}</td><td>{% trans "language" %}</td></tr></thead><tbody>
@@ -489,21 +516,18 @@
 		
 		
 			<tr id="{{ formset.prefix }}-row">
-			<td> {% if formset.instance.pk %}{{ formset.DELETE }}{% endif %}{{ formset.url }}{% if formset.url.errors %}<br><div class="help-inline"> {{ formset.url.errors|join:", " }} </div>{% endif %}</td> 
-             <td>{{formset.urltype}}{% if formset.urltype.errors %}<br><p class="help-inline"> {{ formset.urltype.errors|join:", " }} </p>{% endif %}</td>
-             <td>{{formset.lang}}{% if formset.lang.errors %}<br><p class="help-inline"> {{ formset.lang.errors|join:", " }} </p>{% endif %}</td>
-             
+			<td> {% if formset.instance.pk %}{{ formset.DELETE }}{% endif %}{{ formset.url|attr:"class:form-control" }}{% if formset.url.errors %}<br><div class="help-inline"> {{ formset.url.errors|join:", " }} </div>{% endif %}</td> 
+             <td>{{formset.urltype|attr:"class:form-control"}}{% if formset.urltype.errors %}<br><p class="help-inline"> {{ formset.urltype.errors|join:", " }} </p>{% endif %}</td>
+             <td>{{formset.lang|attr:"class:form-control"}}{% if formset.lang.errors %}<br><p class="help-inline"> {{ formset.lang.errors|join:", " }} </p>{% endif %}</td>
+             <td></td>
 		</tr>
 		{% endfor %}
 		</tbody></table>
 		</div>
 	</div>
-	<div class="control-group">
-		<div class="controls">
-			<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
-			{% trans "Apply" %}</button>
-		</div>
-	</div>
+	<button type="submit" id="applybutton" value="Apply" class="btn btn-primary"/>
+	{% trans "Apply" %}
+	</button>
 </form>
 
 <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
