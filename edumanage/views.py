@@ -31,7 +31,6 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import authenticate, login
 from django.core.cache import cache
 
-from edumanage.decorators import social_active_required
 from utils.cat_helper import *
 
 @never_cache
@@ -56,7 +55,6 @@ def manage_login_front(request):
                               context_instance=RequestContext(request, base_response(request)))
 
 @login_required
-@social_active_required
 @never_cache
 def manage(request):
     services_list = []
@@ -82,7 +80,6 @@ def manage(request):
                               context_instance=RequestContext(request, base_response(request)))
 
 @login_required
-@social_active_required
 @never_cache
 def institutions(request):
     user = request.user
@@ -106,7 +103,6 @@ def institutions(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def add_institution_details(request, institution_pk):
     user = request.user
@@ -161,7 +157,6 @@ def add_institution_details(request, institution_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def services(request, service_pk):
     user = request.user
@@ -208,7 +203,6 @@ def services(request, service_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def add_services(request, service_pk):
     user = request.user
@@ -293,7 +287,6 @@ def add_services(request, service_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def del_service(request):
     if request.method == 'GET':
@@ -322,7 +315,6 @@ def del_service(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def servers(request, server_pk):
     user = request.user
@@ -348,7 +340,6 @@ def servers(request, server_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def add_server(request, server_pk):
     user = request.user
@@ -403,7 +394,6 @@ def add_server(request, server_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def cat_enroll(request):
     user = request.user
@@ -481,7 +471,6 @@ def cat_enroll(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def del_server(request):
     if request.method == 'GET':
@@ -510,7 +499,6 @@ def del_server(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def realms(request):
     user = request.user
@@ -529,7 +517,6 @@ def realms(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def add_realm(request, realm_pk):
     user = request.user
@@ -590,7 +577,6 @@ def add_realm(request, realm_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def del_realm(request):
     if request.method == 'GET':
@@ -619,7 +605,6 @@ def del_realm(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def contacts(request):
     user = request.user
@@ -643,7 +628,6 @@ def contacts(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def add_contact(request, contact_pk):
     user = request.user
@@ -700,7 +684,6 @@ def add_contact(request, contact_pk):
 
 
 @login_required
-@social_active_required
 @never_cache
 def del_contact(request):
     if request.method == 'GET':
@@ -737,7 +720,6 @@ def del_contact(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def instrealmmon(request):
     user = request.user
@@ -759,7 +741,6 @@ def instrealmmon(request):
                                   context_instance=RequestContext(request, base_response(request)))
 
 @login_required
-@social_active_required
 @never_cache
 def add_instrealmmon(request, instrealmmon_pk):
     user = request.user
@@ -810,7 +791,6 @@ def add_instrealmmon(request, instrealmmon_pk):
                                   context_instance=RequestContext(request, base_response(request)))
 
 @login_required
-@social_active_required
 @never_cache
 def del_instrealmmon(request):
     if request.method == 'GET':
@@ -834,7 +814,6 @@ def del_instrealmmon(request):
         return HttpResponse(json.dumps(resp), content_type='application/json')
 
 @login_required
-@social_active_required
 @never_cache
 def add_monlocauthpar(request, instrealmmon_pk, monlocauthpar_pk):
     user = request.user
@@ -895,7 +874,6 @@ def add_monlocauthpar(request, instrealmmon_pk, monlocauthpar_pk):
                                   context_instance=RequestContext(request, base_response(request)))
 
 @login_required
-@social_active_required
 @never_cache
 def del_monlocauthpar(request):
     if request.method == 'GET':
@@ -919,7 +897,6 @@ def del_monlocauthpar(request):
         return HttpResponse(json.dumps(resp), content_type='application/json')
 
 @login_required
-@social_active_required
 @never_cache
 def adduser(request):
     user = request.user
@@ -951,7 +928,6 @@ def adduser(request):
 
 
 @login_required
-@social_active_required
 def base_response(request):
     user = request.user
     inst = []
@@ -997,7 +973,6 @@ def base_response(request):
 
 
 @login_required
-@social_active_required
 @never_cache
 def get_service_points(request):
     if request.method == "GET":
