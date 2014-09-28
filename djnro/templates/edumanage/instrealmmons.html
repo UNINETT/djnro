@@ -13,7 +13,7 @@
 $(document).ready(function(){
 {% if realms %}
 var oTable = $('#table').dataTable({
-	"sPaginationType": "bootstrap",
+	"bPaginate": false,
 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	"aoColumns": [{
         "bSearchable": true,
@@ -33,24 +33,12 @@ var oTable = $('#table').dataTable({
     }
    ],
     "aaSorting": [[0, 'desc']],
-    "iDisplayLength": 25,
     "oSearch": {"bSmart": false, "bRegex":true},
     "oLanguage": {
     	"sLengthMenu": '{% trans "Display" %} <select><option value="25">25</option><option value="50">50</option><option value="-1">{% trans "All" %}</option></select> {% trans "realms" %}',
-        "sProcessing":   "Processing...",
         "sZeroRecords": '{% trans "No records to display" %}',
-        "sInfo":         "Showing _START_ to _END_ of _TOTAL_ entries",
         "sInfoEmpty":    "{% trans "Showing 0 to 0 of 0 entries" %}",
-        "sInfoFiltered": "(filtered from _MAX_ total entries)",
-        "sInfoPostFix":  "",
         "sSearch":       '{% trans "Search:" %}',
-        "sUrl":          "",
-        "oPaginate": {
-            "sFirst":    '{% trans "First" %}',
-            "sPrevious": '{% trans "Previous" %}',
-            "sNext":     '{% trans "Next" %}',
-            "sLast":     '{% trans "Last" %}'
-        }
     }
 });
 
